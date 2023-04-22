@@ -14,14 +14,14 @@ Text grid_text;
 int main( int argc, char* args[] ) {
     initiliaze();
     grid_text.init("times-new-roman.ttf", 20);
-    puzzle = {{3, 3, 2, 4, 8, 3, 7, 2},
-              {3, 1, 2, 8, 7, 6, 4, 5},
-              {2, 3, 4, 8, 3, 6, 1, 6},
-              {6, 5, 7, 1, 8, 2, 8, 8},
-              {3, 2, 2, 6, 5, 8, 2, 1},
-              {7, 1, 6, 4, 6, 1, 5, 3},
-              {5, 6, 3, 7, 4, 5, 2, 3},
-              {1, 8, 8, 6, 2, 7, 6, 4}};
+    puzzle = {{5, 5, 5, 6, 5, 2, 7, 3},
+              {5, 6, 2, 9, 8, 3, 7, 1},
+              {4, 4, 1, 6, 6, 4, 9, 7},
+              {1, 7, 4, 8, 8, 6, 1, 9},
+              {3, 5, 5, 2, 4, 9, 1, 8},
+              {5, 3, 2, 1, 3, 4, 7, 5},
+              {6, 8, 3, 5, 2, 7, 4, 6},
+              {1, 1, 1, 3, 8, 5, 8, 2}};
     grid_size[0] = 8;
     grid_size[1] = 8;
     dark_squares = {};
@@ -114,7 +114,9 @@ int main( int argc, char* args[] ) {
             }
         }
     }
-    for (int num = 0; num < 4; num=num+1){
+    bool t1 = false;
+    bool t2 = false;
+    for (int num = 0; num < 5; num=num+1){
         for(int j = 0; j < grid_size[1]; j=j+1){
             for(int i = 0; i < grid_size[0]; i=i+1){
                 for(int jx = 0; jx < grid_size[1]; jx=jx+1){
@@ -123,6 +125,7 @@ int main( int argc, char* args[] ) {
                             if (circled_squares[l][0]==i && circled_squares[l][1] == jx){
                                 vector<int> pos = {i, j};
                                 dark_squares.push_back(pos);
+                                break;
                             }
                         }
                     }
@@ -137,9 +140,334 @@ int main( int argc, char* args[] ) {
                             if (circled_squares[l][0]==ix && circled_squares[l][1] == j){
                                 vector<int> pos = {i, j};
                                 dark_squares.push_back(pos);
+                                break;
                             }
                         }
                     }
+                }
+            }
+        }
+        for(int i = 0; i < grid_size[0]; i=i+1){
+            for(int j = 0; j < grid_size[1]; j=j+1){
+                if (i==0){
+                    t1 = false;
+                    t2 = false;
+                    vector<int> pos2 = {i+1, j+1};
+                    vector<int> pos3 = {i, j+2};
+                    vector<int> pos4 = {i-1, j-1};
+                    vector<int> pos5 = {i, j-2};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos2[0] && dark_squares[l][1]==pos2[1]){
+                            t1= true;
+                        }
+                    }
+                    for (int lx = 0; lx < dark_squares.size(); lx = lx+1){
+                        if (dark_squares[lx][0]==pos3[0] && dark_squares[lx][1]==pos3[1]){
+                            t2=true;
+                        }
+                    }
+                    if (!(t1 or t2)){
+                        for (int l = 0; l < dark_squares.size(); l = l+1){
+                            if (dark_squares[l][0]==pos4[0] && dark_squares[l][1]==pos4[1]){
+                                t1= true;
+                            }
+                        }
+                        for (int lx = 0; lx < dark_squares.size(); lx = lx+1){
+                            if (dark_squares[lx][0]==pos5[0] && dark_squares[lx][1]==pos5[1]){
+                                t2=true;
+                            }
+                        }
+                    }
+                    if (t1&&t2){
+                        vector<int> pos = {i, j};
+                        circled_squares.push_back(pos);
+                    }
+                }
+                if (i==grid_size[1]-1){
+                    t1 = false;
+                    t2 = false;
+                    vector<int> pos2 = {i-1, j+1};
+                    vector<int> pos3 = {i, j+2};
+                    vector<int> pos4 = {i-1, j-1};
+                    vector<int> pos5 = {i, j-2};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos2[0] && dark_squares[l][1]==pos2[1]){
+                            t1= true;
+                        }
+                    }
+                    for (int lx = 0; lx < dark_squares.size(); lx = lx+1){
+                        if (dark_squares[lx][0]==pos3[0] && dark_squares[lx][1]==pos3[1]){
+                            t2=true;
+                        }
+                    }
+                    if (!(t1 or t2)){
+                        for (int l = 0; l < dark_squares.size(); l = l+1){
+                            if (dark_squares[l][0]==pos4[0] && dark_squares[l][1]==pos4[1]){
+                                t1= true;
+                            }
+                        }
+                        for (int lx = 0; lx < dark_squares.size(); lx = lx+1){
+                            if (dark_squares[lx][0]==pos5[0] && dark_squares[lx][1]==pos5[1]){
+                                t2=true;
+                            }
+                        }
+                    }
+                    if (t1&&t2){
+                        vector<int> pos = {i, j};
+                        circled_squares.push_back(pos);
+                    }
+                }
+                if (j==0){
+                    t1 = false;
+                    t2 = false;
+                    vector<int> pos2 = {i-2, j};
+                    vector<int> pos3 = {i-1, j+1};
+                    vector<int> pos4 = {i+2, j};
+                    vector<int> pos5 = {i+1, j+1};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos2[0] && dark_squares[l][1]==pos2[1]){
+                            t1= true;
+                        }
+                    }
+                    for (int lx = 0; lx < dark_squares.size(); lx = lx+1){
+                        if (dark_squares[lx][0]==pos3[0] && dark_squares[lx][1]==pos3[1]){
+                            t2=true;
+                        }
+                    }
+                    if (!(t1 or t2)){
+                        for (int l = 0; l < dark_squares.size(); l = l+1){
+                            if (dark_squares[l][0]==pos4[0] && dark_squares[l][1]==pos4[1]){
+                                t1= true;
+                            }
+                        }
+                        for (int lx = 0; lx < dark_squares.size(); lx = lx+1){
+                            if (dark_squares[lx][0]==pos5[0] && dark_squares[lx][1]==pos5[1]){
+                                t2=true;
+                            }
+                        }
+                    }
+                    if (t1&&t2){
+                        vector<int> pos = {i, j};
+                        circled_squares.push_back(pos);
+                    }
+                }
+                if (j==grid_size[1]-1){
+                    t1 = false;
+                    t2 = false;
+                    vector<int> pos2 = {i-2, j};
+                    vector<int> pos3 = {i-1, j-1};
+                    vector<int> pos4 = {i+2, j};
+                    vector<int> pos5 = {i+1, j-1};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos2[0] && dark_squares[l][1]==pos2[1]){
+                            t1= true;
+                        }
+                    }
+                    for (int lx = 0; lx < dark_squares.size(); lx = lx+1){
+                        if (dark_squares[lx][0]==pos3[0] && dark_squares[lx][1]==pos3[1]){
+                            t2=true;
+                        }
+                    }
+                    if (!(t1 or t2)){
+                        for (int l = 0; l < dark_squares.size(); l = l+1){
+                            if (dark_squares[l][0]==pos4[0] && dark_squares[l][1]==pos4[1]){
+                                t1= true;
+                            }
+                        }
+                        for (int lx = 0; lx < dark_squares.size(); lx = lx+1){
+                            if (dark_squares[lx][0]==pos5[0] && dark_squares[lx][1]==pos5[1]){
+                                t2=true;
+                            }
+                        }
+                    }
+                    if (t1&&t2){
+                        vector<int> pos = {i, j};
+                        circled_squares.push_back(pos);
+                    }
+                }
+                if (i==1){
+                    t1 = false;
+                    t2 = false;
+                    vector<int> pos2 = {i-1, j-1};
+                    vector<int> pos3 = {i-1, j+1};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos2[0] && dark_squares[l][1]==pos2[1]){
+                            t1= true;
+                        }
+                    }
+                    for (int lx = 0; lx < dark_squares.size(); lx = lx+1){
+                        if (dark_squares[lx][0]==pos3[0] && dark_squares[lx][1]==pos3[1]){
+                            t2=true;
+                        }
+                    }
+                    if (t1&&t2){
+                        vector<int> pos = {i, j};
+                        circled_squares.push_back(pos);
+                    }
+                }
+                if (j==1){
+                    t1 = false;
+                    t2 = false;
+                    vector<int> pos2 = {i-1, j-1};
+                    vector<int> pos3 = {i+1, j-1};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos2[0] && dark_squares[l][1]==pos2[1]){
+                            t1= true;
+                        }
+                    }
+                    for (int lx = 0; lx < dark_squares.size(); lx = lx+1){
+                        if (dark_squares[lx][0]==pos3[0] && dark_squares[lx][1]==pos3[1]){
+                            t2=true;
+                        }
+                    }
+                    if (t1&&t2){
+                        vector<int> pos = {i, j};
+                        circled_squares.push_back(pos);
+                    }
+                }
+                if (i==grid_size[0]-2){
+                    t1 = false;
+                    t2 = false;
+                    vector<int> pos2 = {i+1, j-1};
+                    vector<int> pos3 = {i+1, j+1};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos2[0] && dark_squares[l][1]==pos2[1]){
+                            t1= true;
+                        }
+                    }
+                    for (int lx = 0; lx < dark_squares.size(); lx = lx+1){
+                        if (dark_squares[lx][0]==pos3[0] && dark_squares[lx][1]==pos3[1]){
+                            t2=true;
+                        }
+                    }
+                    if (t1&&t2){
+                        vector<int> pos = {i, j};
+                        circled_squares.push_back(pos);
+                    }
+                }
+                if (j==grid_size[1]-2){
+                    t1 = false;
+                    t2 = false;
+                    vector<int> pos2 = {i-1, j+1};
+                    vector<int> pos3 = {i+1, j+1};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos2[0] && dark_squares[l][1]==pos2[1]){
+                            t1= true;
+                        }
+                    }
+                    for (int lx = 0; lx < dark_squares.size(); lx = lx+1){
+                        if (dark_squares[lx][0]==pos3[0] && dark_squares[lx][1]==pos3[1]){
+                            t2=true;
+                        }
+                    }
+                    if (t1&&t2){
+                        vector<int> pos = {i, j};
+                        circled_squares.push_back(pos);
+                    }
+                }
+                if (i==1 && j==0){
+                    t1 = false;
+                    vector<int> pos = {i, j};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos[0] && dark_squares[l][1]==pos[1]){
+                            t1= true;
+                        }
+                    }
+                    if (t1){
+                        vector<int> pos2 = {i-1, j+1};
+                        circled_squares.push_back(pos2);
+                    }                    
+                }
+                if (i==0 && j==1){
+                    t1 = false;
+                    vector<int> pos = {i, j};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos[0] && dark_squares[l][1]==pos[1]){
+                            t1= true;
+                        }
+                    }
+                    if (t1){
+                        vector<int> pos2 = {i+1, j-1};
+                        circled_squares.push_back(pos2);
+                    }                    
+                }
+                if (i==grid_size[0]-2 && j==0){
+                    t1 = false;
+                    vector<int> pos = {i, j};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos[0] && dark_squares[l][1]==pos[1]){
+                            t1= true;
+                        }
+                    }
+                    if (t1){
+                        vector<int> pos2 = {i+1, j+1};
+                        circled_squares.push_back(pos2);
+                    }                    
+                }
+                if (i==grid_size[0]-1 && j==1){
+                    t1 = false;
+                    vector<int> pos = {i, j};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos[0] && dark_squares[l][1]==pos[1]){
+                            t1= true;
+                        }
+                    }
+                    if (t1){
+                        vector<int> pos2 = {i-1, j-1};
+                        circled_squares.push_back(pos2);
+                    }                    
+                }
+                if (i==0 && j==grid_size[1]-2){
+                    t1 = false;
+                    vector<int> pos = {i, j};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos[0] && dark_squares[l][1]==pos[1]){
+                            t1= true;
+                        }
+                    }
+                    if (t1){
+                        vector<int> pos2 = {i+1, j+1};
+                        circled_squares.push_back(pos2);
+                    }                    
+                }
+                if (i==1 && j==grid_size[1]-1){
+                    t1 = false;
+                    vector<int> pos = {i, j};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos[0] && dark_squares[l][1]==pos[1]){
+                            t1= true;
+                        }
+                    }
+                    if (t1){
+                        vector<int> pos2 = {i-1, j-1};
+                        circled_squares.push_back(pos2);
+                    }                    
+                }
+                if (i==grid_size[0]-2 && j==grid_size[1]-1){
+                    t1 = false;
+                    vector<int> pos = {i, j};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos[0] && dark_squares[l][1]==pos[1]){
+                            t1= true;
+                        }
+                    }
+                    if (t1){
+                        vector<int> pos2 = {i+1, j-1};
+                        circled_squares.push_back(pos2);
+                    }                    
+                }
+                if (i==grid_size[0]-1 && j==grid_size[1]-2){
+                    t1 = false;
+                    vector<int> pos = {i, j};
+                    for (int l = 0; l < dark_squares.size(); l = l+1){
+                        if (dark_squares[l][0]==pos[0] && dark_squares[l][1]==pos[1]){
+                            t1= true;
+                        }
+                    }
+                    if (t1){
+                        vector<int> pos2 = {i-1, j+1};
+                        circled_squares.push_back(pos2);
+                    }                    
                 }
             }
         }

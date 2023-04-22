@@ -13,7 +13,7 @@
 using namespace std;
 int mouse_pos[2];
 SDL_Point mousepos;
-SDL_Window *win = SDL_CreateWindow("SDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_RENDERER_ACCELERATED);
+SDL_Window *win = SDL_CreateWindow("Hitori Solver", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_RENDERER_ACCELERATED);
 SDL_Rect window_rect;
 bool playing = true;
 SDL_Event event;
