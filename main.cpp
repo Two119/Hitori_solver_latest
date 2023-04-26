@@ -14,14 +14,14 @@ Text grid_text;
 int main( int argc, char* args[] ) {
     initiliaze();
     grid_text.init("times-new-roman.ttf", 20);
-    puzzle = {{5, 5, 5, 6, 5, 2, 7, 3},
-              {5, 6, 2, 9, 8, 3, 7, 1},
-              {4, 4, 1, 6, 6, 4, 9, 7},
-              {1, 7, 4, 8, 8, 6, 1, 9},
-              {3, 5, 5, 2, 4, 9, 1, 8},
-              {5, 3, 2, 1, 3, 4, 7, 5},
-              {6, 8, 3, 5, 2, 7, 4, 6},
-              {1, 1, 1, 3, 8, 5, 8, 2}};
+    puzzle = {{7, 7, 3, 6, 7, 5, 4, 1},
+              {8, 6, 8, 9, 5, 2, 4, 3},
+              {8, 8, 2, 4, 6, 5, 5, 9},
+              {1, 2, 3, 5, 5, 3, 1, 4},
+              {2, 7, 6, 1, 4, 9, 7, 8},
+              {6, 5, 6, 7, 1, 6, 9, 6},
+              {1, 1, 5, 2, 1, 7, 4, 6},
+              {5, 3, 3, 8, 9, 4, 1, 7}};
     grid_size[0] = 8;
     grid_size[1] = 8;
     dark_squares = {};
@@ -116,9 +116,13 @@ int main( int argc, char* args[] ) {
     }
     bool t1 = false;
     bool t2 = false;
-    for (int num = 0; num < 5; num=num+1){
+    bool repeat1 = false;
+    bool repeat2 = false;
+    vector<vector<int>> single_num = {};
+    for (int num = 0; num < 10; num=num+1){
         for(int j = 0; j < grid_size[1]; j=j+1){
             for(int i = 0; i < grid_size[0]; i=i+1){
+                bool repeat1 = false;
                 for(int jx = 0; jx < grid_size[1]; jx=jx+1){
                     if (puzzle[j][i]==puzzle[jx][i] && j!=jx){
                         for (int l = 0; l < circled_squares.size(); l = l+1){
@@ -128,12 +132,19 @@ int main( int argc, char* args[] ) {
                                 break;
                             }
                         }
+                        repeat1=true;
                     }
+                }
+                if (!repeat1){
+                    vector<int> position = {i, j};
+                    single_num.push_back(position);
                 }
             }
         }
+        
         for(int i = 0; i < grid_size[0]; i=i+1){
             for(int j = 0; j < grid_size[1]; j=j+1){
+                repeat2 = false;
                 for(int ix = 0; ix < grid_size[1]; ix=ix+1){
                     if (puzzle[j][i]==puzzle[j][ix] && i!=ix){
                         for (int l = 0; l < circled_squares.size(); l = l+1){
@@ -143,6 +154,19 @@ int main( int argc, char* args[] ) {
                                 break;
                             }
                         }
+                        repeat2 = true;
+                    }
+                }
+                if (!repeat2){
+                    repeat2 = true;
+                    for(int len = 0; len < single_num.size(); len=len+1){
+                        if (single_num[len][0]==i && single_num[len][1]==j){
+                            repeat2 = false;
+                        }
+                    }
+                    if (!repeat2){
+                        vector<int> pos = {i, j};
+                        circled_squares.push_back(pos);
                     }
                 }
             }
@@ -519,7 +543,7 @@ int main( int argc, char* args[] ) {
         grid_text.render(num.c_str(), loc,grid_surf, wColor);
     }
     int count = 0;
-    int pos2[2] = {640-grid_size[0]*32, 360-grid_size[1]*32};
+    int pos2[2] = {640-grid_size[0]*32, 500-grid_size[1]*32};
     while (playing){
         count += 1;
         window_surface = SDL_GetWindowSurface(win);

@@ -16,7 +16,7 @@ void initiliaze(){
     window_rect.x = 0;
     window_rect.y = 0;
     window_rect.w = 1280;
-    window_rect.h = 720;
+    window_rect.h = 1000;
     int pos[2] = {100, 100};
     int pos2[2] = {100, 200};
     button.init(pos);
